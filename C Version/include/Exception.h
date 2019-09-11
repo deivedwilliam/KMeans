@@ -2,6 +2,7 @@
 #define EXCEPTION_H_
 
 #include <setjmp.h>
+#include <stdio.h>
 
 #define NULLReference(Obj) (Obj == ((void*)0x00000000))
 
@@ -16,7 +17,7 @@
 #define finally else
 
 
-#define PrintExceptionStdOut(Obj) printf("File: %s Funçao: %s %li %s, Exception Code: %i\n",__FILE__, __FUNCTION__, __LINE__, Obj.message, Obj.code);
+#define PrintExceptionStdOut(Obj) printf("File: %s Function: %s %i %s, Exception Code: %i\n",__FILE__, __FUNCTION__, __LINE__, Obj.message, Obj.code); exit(-1);
 
 
 #define FileOpen(ptr, filename, mode)				\
@@ -194,13 +195,6 @@
 		PrintExceptionStdOut(NullPointerException);		\
 	}
 
-extern const struct ObjException
-{
-	unsigned char* message;
-	unsigned long code; 
-}Exception;
-
-
 
 extern enum ObjExceptionType
 {
@@ -220,14 +214,20 @@ extern enum ObjExceptionType
 	__FileCloseException__
 }ExceptionType;
 
+extern const struct ObjException
+{
+	unsigned char* message;
+	enum ObjExceptionType code; 
+}Exception;
 
 extern jmp_buf exception_buffer; 						
-extern unsigned long  exception_code;
+extern  enum ObjExceptionType  exception_code;
 			
-extern enum ObjExceptionType ExceptionType;
+//extern enum ObjExceptionType ExceptionType;
 extern const struct ObjException NullPointerException;
 extern const struct ObjException Exception;
 extern const struct ObjException FileWriteException;
+extern const struct ObjException FileOpenException;
 extern const struct ObjException FileReadException;
 extern const struct ObjException ReWindExeption;
 extern const struct ObjException FileSeekException;
