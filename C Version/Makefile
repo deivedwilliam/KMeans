@@ -3,4 +3,4 @@ CC = gcc
 OBJ_NAME = main
 
 all: $(OBJS)
-	$(CC) $(OBJS)  -o $(OBJ_NAME) -lm #-DDEBUG_ON
+	$(CC) $(OBJS)  -o $(OBJ_NAME) -lm -DRAND_CENTROID_POINTS -DDEBUG_ON
