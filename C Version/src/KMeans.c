@@ -28,11 +28,11 @@ typedef struct KMeansStructure
 
 float CalcDistance(Pointer q, Pointer r)
 {
-    struct Point a = *((Point)q);
-    struct Point b = *((Point)r);
+    Point a = ((Point)q);
+    Point b = ((Point)r);
     float res;
 
-    res = (a.x - b.x) + (a.y - b.y);
+    res = (a->x - b->x)*(a->x - b->x) + (a->y - b->y)*(a->y - b->y);
 
     return sqrt(res);
 }
@@ -110,7 +110,15 @@ void fit(KMeans* km, Pointer data, int data_num)
     CKMeans(km)->dataPointer = data;
     CKMeans(km)->data_num = data_num;
 
+    p = ((Point)CKMeans(km)->dataPointer);
 
+#ifdef PRINT_DATASET
+    for(i = 0; i < data_num; i++)
+    {
+        printf("%f, %f\n", p[i].x, p[i].y);
+    }
+#endif
+    
     try
     {
         if(NULLReference(km))
@@ -197,4 +205,5 @@ void fit(KMeans* km, Pointer data, int data_num)
         printf("\tCenroid [%i] -> y = %f\n", i, ((Point)CKMeans(km)->initial_centroids)[i].y);
     }
 #endif    
+
 }

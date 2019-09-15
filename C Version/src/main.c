@@ -17,7 +17,8 @@ int main(int argc, char const *argv[])
     FileOpen(dataFile, "xclara.csv", "r");
 
     data = (Point)calloc(3000, sizeof(struct Point));
-    km = InitKMeans(3, 0.0001f, 500);
+    km = InitKMeans(5, 0.0001f, 500);
+
 
     for(i = 0; i < 3000; i += 1)
     {
